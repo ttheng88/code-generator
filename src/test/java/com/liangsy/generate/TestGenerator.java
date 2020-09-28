@@ -61,6 +61,7 @@ class TestGenerator {
         generator.scanAndGenerator(dataModel);
     }
 
+
     /**
      * 调用入口类 生成代码
      */
