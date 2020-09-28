@@ -1,0 +1,60 @@
+<#assign classNameLower = ClassName ? uncap_first>
+package ${pPackage}.service.impl;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import ${pPackage}.mapper.${ClassName}Mapper;
+import ${pPackage}.model.${ClassName};
+import ${pPackage}.service.${ClassName}Service;
+import ${pPackage}.vo.${LowerClassName}.${ClassName}QueryVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+import java.util.List;
+
+/**
+* @desc ${ClassName}实现类
+* @author ${author}
+* @date ${dateTime}
+*/
+@Service
+public class ${ClassName}ServiceImpl implements ${ClassName}Service {
+
+    @Autowired(required = false)
+    private ${ClassName}Mapper ${classNameLower}Mapper;
+
+    @Override
+    public List<${ClassName}> queryAll() {
+    return ${classNameLower}Mapper.selectAll();
+    }
+
+    @Override
+    public ${ClassName} queryByPrimaryKey(Object key) {
+    return ${classNameLower}Mapper.selectByPrimaryKey(key);
+    }
+
+    @Override
+    public PageInfo<${ClassName}> queryPaging(${ClassName}QueryVo ${classNameLower}QueryVo) {
+    Example example = new Example(${ClassName}.class);
+    // TODO 查询条件封装
+    String orderBy = ${classNameLower}QueryVo.getCondition() + " " + ${classNameLower}QueryVo.getSort();
+    PageHelper.startPage(${classNameLower}QueryVo.getPageNum(), ${classNameLower}QueryVo.getPageSize(), orderBy);
+    List<${ClassName}> ${classNameLower}List = ${classNameLower}Mapper.selectByExample(example);
+    return new PageInfo<>(${classNameLower}List);
+    }
+
+    @Override
+    public int saveSelective(${ClassName} ${classNameLower}) {
+    return ${classNameLower}Mapper.insertSelective(${classNameLower});
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Object key) {
+    return ${classNameLower}Mapper.deleteByPrimaryKey(key);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(${ClassName} ${classNameLower}) {
+    return ${classNameLower}Mapper.updateByPrimaryKeySelective(${classNameLower});
+    }
+}

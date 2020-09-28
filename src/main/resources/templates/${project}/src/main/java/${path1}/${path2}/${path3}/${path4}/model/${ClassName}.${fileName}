@@ -1,0 +1,45 @@
+package ${pPackage}.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+/**
+ * @desc ${table.name}
+ * @author ${author}
+ * @date ${dateTime}
+ */
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "${table.name}")
+public class ${ClassName} implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    <#list table.columns as column>
+    <#if column.columnComment?trim?length gt 1>
+    /**
+    * ${column.columnComment}
+    */
+    </#if>
+    <#if column.columnKey??>
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    </#if>
+    @Column(name = "${column.columnName}")
+    private ${column.columnType} ${column.columnName2};
+
+    </#list>
+
+    <#list table.columns as column>
+    public static final String ${column.columnName?upper_case} = "${column.columnName2}";
+
+    </#list>
+
+}

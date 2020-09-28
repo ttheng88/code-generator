@@ -1,0 +1,66 @@
+<#assign classNameLower = ClassName ? uncap_first>
+package ${pPackage}.controller;
+
+import ${path1}.${path2}.${path3}.common.response.ResponseHelper;
+import ${pPackage}.model.${ClassName};
+import ${pPackage}.service.${ClassName}Service;
+import ${pPackage}.vo.group.UpdateVaild;
+import ${pPackage}.vo.${LowerClassName}.${ClassName}QueryVo;
+import ${pPackage}.vo.${LowerClassName}.${ClassName}Vo;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
+
+/**
+* @desc ${ClassName}控制类
+* @author ${author}
+* @date ${dateTime}
+*/
+@RestController
+@RequestMapping("/${LowerClassName}")
+@Validated
+public class ${ClassName}Controller {
+
+    @Autowired
+    private ${ClassName}Service ${classNameLower}Service;
+
+    @PostMapping(value = "/add")
+    public ResponseEntity add(@RequestBody @Validated ${ClassName}Vo ${classNameLower}Vo){
+        ${ClassName} ${classNameLower} = new ${ClassName}();
+        BeanUtils.copyProperties(${classNameLower}Vo,${classNameLower});
+        return ResponseHelper.successful(${classNameLower}Service.saveSelective(${classNameLower}));
+    }
+
+    @PostMapping(value = "/update")
+    public ResponseEntity update(@RequestBody @Validated({UpdateVaild.class, Default.class}) ${ClassName}Vo ${classNameLower}Vo){
+        ${ClassName} ${classNameLower} = new ${ClassName}();
+        BeanUtils.copyProperties(${classNameLower}Vo,${classNameLower});
+        return ResponseHelper.successful(${classNameLower}Service.updateByPrimaryKeySelective(${classNameLower}));
+    }
+
+    @PostMapping(value = "/delete")
+    public ResponseEntity delete(@RequestBody @Validated({UpdateVaild.class}) ${ClassName}Vo ${classNameLower}Vo){
+        return ResponseHelper.successful(${classNameLower}Service.deleteByPrimaryKey(${classNameLower}Vo.getId()));
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity queryAll(){
+        ResponseHelper<Object> response = new ResponseHelper<>();
+        return response.responseOriginal(${classNameLower}Service.queryAll());
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity queryPaging(@RequestBody ${ClassName}QueryVo ${classNameLower}QueryVo){
+        return ResponseHelper.successful(${classNameLower}Service.queryPaging(${classNameLower}QueryVo));
+    }
+
+    @GetMapping(value = "/find")
+    public ResponseEntity queryById(@NotNull(message = "查询主键不能为空") @RequestParam(value = "id") Integer id) {
+        return ResponseHelper.successful(${classNameLower}Service.queryByPrimaryKey(id));
+    }
+
+}

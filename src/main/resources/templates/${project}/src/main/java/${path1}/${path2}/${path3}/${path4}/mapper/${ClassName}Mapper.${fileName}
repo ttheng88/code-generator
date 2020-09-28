@@ -1,0 +1,10 @@
+package ${pPackage}.mapper;
+
+import ${pPackage}.model.${ClassName};
+import tk.mybatis.mapper.common.Mapper;
+/**
+ * @author ${author}
+ * @date ${dateTime}
+ */
+public interface ${ClassName}Mapper extends Mapper<${ClassName}> {
+}

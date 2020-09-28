@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: mysql-proxy
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.120.22.40:8306/bd_bis2?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: zhdgps_123456
+
+logging:
+  config: classpath:logback-spring.xml
+

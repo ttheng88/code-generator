@@ -1,0 +1,34 @@
+package ${pPackage}.vo.${LowerClassName};
+
+import ${pPackage}.vo.group.UpdateVaild;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
+/**
+* @desc ${ClassName}Vo
+* @author ${author}
+* @date ${dateTime}
+*/
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${ClassName}Vo{
+
+    <#list table.columns as column>
+    <#if column.columnComment?trim?length gt 1>
+    /**
+    * ${column.columnComment}
+    */
+    </#if>
+    <#if column.columnKey??>
+    @NotNull(message = "主键不能为空",groups = {UpdateVaild.class})
+    </#if>
+    private ${column.columnType} ${column.columnName2};
+
+    </#list>
+}
