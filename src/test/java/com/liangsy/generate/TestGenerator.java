@@ -48,6 +48,7 @@ class TestGenerator {
         dbInfo.forEach(System.out::println);
     }
 
+
     /**
      * 扫描目录下所有模板并生成文件
      */
