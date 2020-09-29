@@ -22,11 +22,11 @@ class TestGenerator {
     @BeforeEach
     void getDataBase(){
         String driver = "com.mysql.cj.jdbc.Driver";
-        String ip = "10.120.22.40";
-        String port = "8306";
-        String catalog = "bd_bis2";
+        String ip = "192.168.200.239";
+        String port = "3308";
+        String catalog = "bd_bis";
         String userName = "root";
-        String passWord = "zhdgps_123456";
+        String passWord = "root";
         dataBase = new DataBase(driver,ip,port,userName,passWord,catalog);
     }
 
@@ -68,18 +68,18 @@ class TestGenerator {
      */
     @Test
     void testGeneratorFacade() throws Exception {
-        String templatePath = "D:\\my_work\\myProject1\\code-generator\\src\\main\\resources\\templates";
-        String outPath = "C:\\Users\\liangsy\\Desktop\\temp\\outPath";
+        String templatePath = "E:\\myWork\\ideaWorkSapce\\code-generator\\src\\main\\resources\\templates";
+        String outPath = "G:\\outPath";
         //使用Builder不会调用无参构造函数
         Settings settings = new Settings();
         settings.setAuthor("liangsy");
         settings.setPath1("com");
-        settings.setPath2("sgcc");
-        settings.setPath3("richsoft");
-        settings.setPath4("proxy");
-        settings.setPPackage("com.sgcc.richsoft.proxy");
-        settings.setProject("sgcc-mysql-proxy");
-        settings.setProjectComment("数据库代理服务");
+        settings.setPath2("test");
+        settings.setPath3("agency");
+        settings.setPath4("spring");
+        settings.setPPackage("com.test.agency.spring");
+        settings.setProject("netty-proxy-server");
+        settings.setProjectComment("Netty代理服务");
         GeneratorFacade generatorFacade = new GeneratorFacade(templatePath,outPath,settings,dataBase);
         generatorFacade.generatorByDataBase();
     }
